@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DealOrNoDeal.UserInterfaces"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Gray">
+             d:DesignHeight="450" d:DesignWidth="800" >
     <Border Height="200" Width="200" BorderBrush="Black" BorderThickness="1" CornerRadius="6">
         <Grid >
             <Grid.ColumnDefinitions>
@@ -20,7 +20,10 @@
             <Label Content="OPTIONEN" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18"/>
             <Label Content="Geld:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="5"/>
             <TextBox Text="1-25" x:Name="moneyText" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5"/>
-            <Button Content="Zurück" Grid.ColumnSpan="2" Grid.Row="2" Margin="5" x:Name="backButton" Click="backButton_Click"></Button>
+            <Grid Margin="5" MouseLeftButtonDown="backButton_Click" Grid.ColumnSpan="2" Grid.Row="2">
+              <Image Source="/Icons/button.png" Height="auto" Width="auto" />
+                <Label Content="Zurück" VerticalAlignment="Center" FontSize="25" Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>

@@ -60,11 +60,17 @@
     <Compile Include="UserInterfaces\CasesWindow.xaml.cs">
       <DependentUpon>CasesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaces\DealWindow.xaml.cs">
+      <DependentUpon>DealWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaces\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaces\OptionsMenu.xaml.cs">
       <DependentUpon>OptionsMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaces\SwitchCaseWindow.xaml.cs">
+      <DependentUpon>SwitchCaseWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -82,11 +88,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaces\DealWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaces\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaces\OptionsMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaces\SwitchCaseWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,6 +130,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\koffer_zu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\koffer_offen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\koffer_angebot_offen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\koffer_angebot2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\button_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\wallpaper.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

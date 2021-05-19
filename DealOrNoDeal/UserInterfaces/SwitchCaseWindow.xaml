@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="DealOrNoDeal.UserInterfaces.SwitchCaseWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DealOrNoDeal.UserInterfaces"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="firstCaseGrid" Height="400" MouseLeftButtonDown="firstCaseGrid_MouseLeftButtonDown" Grid.Column="0" Grid.Row="0">
+            <Image x:Name="firstCaseImage" Source="/Icons/koffer_angebot2.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <TextBlock Foreground="White" x:Name="firstCaseText" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,220,0,0" FontSize="24"></TextBlock>
+            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,150" x:Name="firstMoneyText" FontSize="30"></TextBlock>
+        </Grid>
+        <Grid x:Name="secondCaseGrid" MouseLeftButtonDown="secondCaseGrid_MouseLeftButtonDown" Height="400" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0">
+            <Image x:Name="secondCaseImage" Source="/Icons/koffer_angebot2.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <TextBlock Foreground="White" x:Name="secondCaseText" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,220,0,0" FontSize="24"></TextBlock>
+            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,150" x:Name="secondMoneyText" FontSize="30"></TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

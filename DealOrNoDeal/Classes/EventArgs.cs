@@ -10,4 +10,9 @@ namespace DealOrNoDeal.Classes
     {
         public List<T> list { get; set; }
     }
+    public class StringEventArgs : EventArgs
+    {
+        public string price { get; set; }
+    }
+
 }

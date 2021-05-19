@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Andi\source\repos\DealOrNoDeal\DealOrNoDeal\obj\Debug\
+C:\Users\Andreas\Source\Repos\DealOrNoDeal\DealOrNoDeal\obj\Debug\
 DealOrNoDeal
 none
 false
 DEBUG;TRACE
-C:\Users\Andi\source\repos\DealOrNoDeal\DealOrNoDeal\App.xaml
-4167959009
+C:\Users\Andreas\Source\Repos\DealOrNoDeal\DealOrNoDeal\App.xaml
+6158565884
 
-11594824412
+13618506523
 13-1505183044
-MainWindow.xaml;UserInterfaces\CasesWindow.xaml;UserInterfaces\MainMenu.xaml;UserInterfaces\OptionsMenu.xaml;
+MainWindow.xaml;UserInterfaces\CasesWindow.xaml;UserInterfaces\DealWindow.xaml;UserInterfaces\MainMenu.xaml;UserInterfaces\OptionsMenu.xaml;UserInterfaces\SwitchCaseWindow.xaml;
 
 True
 

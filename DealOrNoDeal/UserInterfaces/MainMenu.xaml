@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DealOrNoDeal.UserInterfaces"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Gray">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Border  Height="200" Width="200" BorderBrush="Black" BorderThickness="1" CornerRadius="6">
         <Grid>
             <Grid.RowDefinitions>
@@ -13,9 +13,18 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button Content="Spielen" Margin="5" x:Name="playButton" Click="playButton_Click" ></Button>
-            <Button Content="Optionen" Margin="5" Grid.Row="1" x:Name="optionButton" Click="optionButton_Click" ></Button>
-            <Button Content="Beenden" Margin="5" Grid.Row="2" x:Name="closeButton" Click="closeButton_Click"></Button>
+            <Grid Margin="5" MouseLeftButtonDown="playButton_Click" Grid.Row="0">
+                <Image Source="/Icons/button.png" Height="auto" Width="auto" />
+                <Label Content="Start" VerticalAlignment="Center" FontSize="25" Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
+            <Grid Margin="5" MouseLeftButtonDown="optionButton_Click" Grid.Row="1">
+                <Image Source="/Icons/button.png" Height="auto" Width="auto" />
+                <Label Content="Optionen" VerticalAlignment="Center" FontSize="25" Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
+            <Grid Margin="5" MouseLeftButtonDown="closeButton_Click" Grid.Row="2">
+                <Image Source="/Icons/button.png" Height="auto" Width="auto" />
+                <Label Content="Beenden" VerticalAlignment="Center" FontSize="25" Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
         </Grid>
     </Border>
     

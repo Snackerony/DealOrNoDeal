@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Deal or no deal - Poor Edition" Height="450" Width="800">
     <Grid>
+        <Image Source="/Icons/wallpaper.png" Stretch="UniformToFill"></Image>
         <UI:MainMenu Visibility="Visible" x:Name="mainMenuWindow"/>
         <UI:OptionsMenu Visibility="Collapsed" x:Name="optionsMenuWindow"/>
         <UI:CasesWindow Visibility="Collapsed" x:Name="casesWindow" />

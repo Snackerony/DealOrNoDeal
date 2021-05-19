@@ -24,9 +24,38 @@ namespace DealOrNoDeal.UserInterfaces
         public CasesWindow()
         {
             InitializeComponent();
+            dealWindow.NoDealPressed += DealWindow_NoDealPressed;
+            dealWindow.DealPressed += DealWindow_DealPressed;
         }
-        float casePercentage = 0.4f;
-        int casesLeft;
+
+        private void DealWindow_DealPressed(object sender, StringEventArgs e)
+        {
+            switchCaseWindow.Visibility = Visibility.Visible;
+            caseWindow.Visibility = Visibility.Collapsed;
+            dealWindow.Visibility = Visibility.Collapsed;
+            switchCaseWindow.DealAccepted(e.price);
+        }
+
+        private void DealWindow_NoDealPressed(object sender, EventArgs e)
+        {
+            dealWindow.Visibility = Visibility.Collapsed;
+            caseWindow.Visibility = Visibility.Visible;
+        }
+
+        float casePercentage = 0.5f;
+        private int _casesLeft = 0;
+        int casesLeft
+        {
+            get
+            {
+                return _casesLeft;
+            }
+            set
+            {
+                _casesLeft = value;
+                counterText.Content = $"Koffer: {value}";
+            }
+        }
 
         bool selectCase = true;
 
@@ -34,6 +63,7 @@ namespace DealOrNoDeal.UserInterfaces
 
         public void FillCases(List<int> intList)
         {
+            intList = ShuffleList(intList);
             selectCase = true;
             caseList.Clear();
             caseGrid.Children.Clear();
@@ -49,11 +79,11 @@ namespace DealOrNoDeal.UserInterfaces
                 row = counter / columnCount;
                 if (row == 0)
                 {
-                    caseGrid.ColumnDefinitions.Add(new ColumnDefinition() { MaxWidth = 75, MinWidth = 75 });
+                    caseGrid.ColumnDefinitions.Add(new ColumnDefinition() { MaxWidth = 200, MinWidth = 200 });
                 }
                 if (column == 0)
                 {
-                    caseGrid.RowDefinitions.Add(new RowDefinition() { MaxHeight = 75, MinHeight = 75 });
+                    caseGrid.RowDefinitions.Add(new RowDefinition() { MaxHeight = 200, MinHeight = 200 });
                 }
                 Case box = new Case()
                 {
@@ -70,6 +100,20 @@ namespace DealOrNoDeal.UserInterfaces
             }
             casesLeft = (int)(caseList.FindAll(m => !m.IsOpen && !m.IsSelected).Count * casePercentage);
             FillGrid();
+            FillListGrid();
+        }
+
+        private List<int> ShuffleList(List<int> intList)
+        {
+            List<int> shuffledList = new List<int>();
+            Random ran = new Random();
+            while (intList.Count > 0)
+            {
+                int nextInt = ran.Next(0, intList.Count);
+                shuffledList.Add(intList[nextInt]);
+                intList.RemoveAt(nextInt);
+            }
+            return shuffledList;
         }
 
         private void FillGrid()
@@ -78,22 +122,42 @@ namespace DealOrNoDeal.UserInterfaces
             foreach (var item in caseList)
             {
                 if (!item.IsSelected && !item.IsOpen)
-                    caseGrid.Children.Add(GenerateLabel(item));
+                    caseGrid.Children.Add(GenerateGrid(item));
             }
 
         }
 
-        private Label GenerateLabel(Case selectedCase)
+        private Grid GenerateGrid(Case selectedCase)
         {
-            Label label = new Label()
+            Grid grid = new Grid();
+            Image img = new Image()
             {
-                Content = selectedCase.Counter,
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center
+                Height = 200,
+                Width = 200,
+                Source = new BitmapImage(new Uri(@"\Icons\koffer_zu.png", UriKind.Relative))
             };
-            label.MouseLeftButtonDown += (sender, e) =>
+            TextBlock textNumber = new TextBlock()
             {
-                if(selectCase == true)
+                Foreground = Brushes.White,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 0, 0, 18),
+                Text = selectedCase.Counter.ToString(),
+                FontSize = 24
+            };
+            TextBlock textMoney = new TextBlock()
+            {
+                Foreground = Brushes.White,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 0, 0, 30),
+                Text = selectedCase.MoneyReadable.ToString(),
+                FontSize = 24,
+                Visibility = Visibility.Collapsed
+            };
+            grid.MouseLeftButtonDown += (sender, e) =>
+            {
+                if (selectCase == true)
                 {
                     selectedCase.IsSelected = true;
                     selectCase = false;
@@ -104,18 +168,101 @@ namespace DealOrNoDeal.UserInterfaces
                 else
                 {
                     selectedCase.IsOpen = true;
-                    label.Content = selectedCase.MoneyReadable;
+                    img.Source = new BitmapImage(new Uri(@"\Icons\koffer_offen.png", UriKind.Relative));
+                    textMoney.Visibility = Visibility.Visible;
+                    //label.Content = selectedCase.MoneyReadable;
                     casesLeft--;
-                    if(casesLeft == 0)
+                    FillListGrid();
+                    if (casesLeft == 0)
                     {
-                        casesLeft = (int)(caseList.FindAll(m => !m.IsOpen && !m.IsSelected).Count * casePercentage);
-                        FillGrid();
+                        if (caseList.FindAll(m => m.IsSelected || !m.IsOpen).Count > 2)
+                        {
+                            caseWindow.Visibility = Visibility.Collapsed;
+                            dealWindow.Visibility = Visibility.Visible;
+                            dealWindow.Refresh(caseList);
+                            casesLeft = (int)(caseList.FindAll(m => !m.IsOpen && !m.IsSelected).Count * casePercentage);
+                            FillGrid();
+                        }
+                        else
+                        {
+                            switchCaseWindow.Visibility = Visibility.Visible;
+                            caseWindow.Visibility = Visibility.Collapsed;
+                            switchCaseWindow.Refresh(caseList.FindAll(m => m.IsSelected || !m.IsOpen));
+                        }
+
+
                     }
                 }
             };
-            Grid.SetColumn(label, selectedCase.Column);
-            Grid.SetRow(label, selectedCase.Row);
-            return label;
+            grid.Children.Add(img);
+            grid.Children.Add(textNumber);
+            grid.Children.Add(textMoney);
+            Grid.SetColumn(grid, selectedCase.Column);
+            Grid.SetRow(grid, selectedCase.Row);
+            return grid;
+        }
+
+        private void FillListGrid()
+        {
+            caseList.Sort((m, n) => m.Money.CompareTo(n.Money));
+            listGrid.RowDefinitions.Clear();
+            listGrid.Children.Clear();
+            int column = 0;
+            int row = 0;
+            foreach (var item in caseList)
+            {
+                if (column == 0)
+                {
+                    listGrid.RowDefinitions.Add(new RowDefinition()
+                    {
+                        MaxHeight = 50,
+                        MinHeight = 50
+                    });
+                }
+                listGrid.Children.Add(GenerateLabel(item, row, column));
+                if (column == 0)
+                {
+                    column++;
+                }
+                else
+                {
+                    column = 0;
+                    row++;
+                }
+            }
+        }
+
+        private Grid GenerateLabel(Case myCase, int row, int column)
+        {
+
+            Grid grid = new Grid()
+            {
+                Margin = new Thickness(5)
+            };
+            Image img = new Image()
+            {
+                Height = 50
+            };
+            Label lbl = new Label()
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = Brushes.White,
+                Content = myCase.MoneyReadable
+            };
+            if (myCase.IsOpen)
+            {
+                img.Source = new BitmapImage(new Uri(@"\Icons\button_off.png", UriKind.Relative));
+            }
+            else
+            {
+                img.Source = new BitmapImage(new Uri(@"\Icons\button.png", UriKind.Relative));
+            }
+            grid.Children.Add(img);
+            grid.Children.Add(lbl);
+            Grid.SetColumn(grid, column);
+            Grid.SetRow(grid, row);
+            return grid;
         }
     }
 }

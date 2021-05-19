@@ -4,14 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DealOrNoDeal.UserInterfaces"
+             xmlns:UI="clr-namespace:DealOrNoDeal.UserInterfaces"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Gray">
-    <DockPanel LastChildFill="True" Margin="10">
-        <Label x:Name="headerText" Foreground="White" FontSize="25" FontWeight="Bold" Content="Wähle einen Koffer" HorizontalContentAlignment="Center" DockPanel.Dock="Top"></Label>
-        <ScrollViewer Margin="0,5,0,0" DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid x:Name="caseGrid">
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+
+        <DockPanel x:Name="caseDock" LastChildFill="True" Margin="10">
+            <Grid DockPanel.Dock="Top">
+                <Label HorizontalContentAlignment="Left" x:Name="counterText" Foreground="White" FontSize="25" FontWeight="Bold" Content="Koffer: "></Label>
+                <Label HorizontalContentAlignment="Center" x:Name="headerText" Foreground="White" FontSize="25" FontWeight="Bold" Content="Wähle einen Koffer"></Label>
 
             </Grid>
-        </ScrollViewer>
-    </DockPanel>
+            <Grid DockPanel.Dock="Top" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <UI:DealWindow Visibility="Collapsed" x:Name="dealWindow" />
+                <UI:SwitchCaseWindow Visibility="Collapsed" x:Name="switchCaseWindow" />
+                <ScrollViewer Visibility="Visible" x:Name="caseWindow" Grid.Column="0" Margin="0,5,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid x:Name="caseGrid">
+                        <!--<Grid Grid.Column="0" Grid.Row="0" >
+                    <Image Source="/Icons/koffer_offen.png" ></Image>
+                    <TextBlock Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,18" FontSize="24">14</TextBlock>
+                    <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,30" FontSize="24">14€</TextBlock>
+                </Grid>-->
+                    </Grid>
+                </ScrollViewer>
+                <ScrollViewer Grid.Column="1" Margin="0,5,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid x:Name="listGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </DockPanel>
+    </Grid>
 </UserControl>
